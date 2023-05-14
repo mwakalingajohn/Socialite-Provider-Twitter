@@ -61,17 +61,18 @@ class Server extends BaseServer
 
         $used = ['id', 'screen_name', 'name', 'location', 'description', 'profile_image_url_https', 'email'];
 
-        $user->urls = [];
+        $urls = [];
         foreach ($data as $key => $value) {
             if (strpos($key, 'url') !== false) {
                 if (!in_array($key, $used, true)) {
                     $used[] = $key;
                 }
 
-                $user->urls[$key] = $value;
+                $urls[$key] = $value;
             }
         }
 
+        $user->urls = $urls;
         $user->extra = array_diff_key($data, array_flip($used));
 
         return $user;
